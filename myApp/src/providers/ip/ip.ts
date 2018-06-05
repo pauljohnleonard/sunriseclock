@@ -10,7 +10,7 @@ import { Subject} from "rxjs/Subject"
 
 
 
-function xyz (cb) {
+function getLanIP(cb) {
   // NOTE: window.RTCPeerConnection is "not a constructor" in FF22/23
    var RTCPeerConnection = /*window.RTCPeerConnection ||*/ window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
 
@@ -55,7 +55,7 @@ export class IpProvider {
   ipSubject= new Subject<any>(); 
   constructor(public http: HttpClient) {
 
-    xyz( (val) => {
+    getLanIP( (val) => {
       this.ipSubject.next({ip:val});
     });
     console.log('Hello IpProvider Provider');
