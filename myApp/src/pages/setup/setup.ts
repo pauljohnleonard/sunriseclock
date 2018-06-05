@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { timeout } from 'rxjs/operators/timeout';
 
@@ -9,6 +9,7 @@ import { timeout } from 'rxjs/operators/timeout';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+
 
 @IonicPage()
 @Component({
@@ -39,17 +40,7 @@ export class SetupPage {
             })
     }
 
+
 }
 
 
-// return Observable.from(new Promise((resolve, reject) => {
-//     let headers = new Headers();
-//     headers.append('Content-Type', 'application/json');
-//     this.http.post(this.url + '/api/', JSON.stringify(credentials), { headers: headers }).timeout(15000)
-//       .subscribe(res => {
-//         let data = res.json();
-//         resolve(data);
-//       }, (err) => {
-//         reject(err);
-//       });
-//   }))
