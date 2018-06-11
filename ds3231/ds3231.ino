@@ -30,7 +30,7 @@ void setup () {
     
   }
 
-   rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
+   // rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
 }
 
 void loop () {

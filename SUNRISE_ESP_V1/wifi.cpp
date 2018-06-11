@@ -13,10 +13,11 @@ void wifi_setup() {
 
   WiFi.softAP(apssid);
 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
+//  while (WiFi.status() != WL_CONNECTED) {
+//    delay(500);
+//    Serial.print(".");
+//  }
+//  
   Serial.println("");
   Serial.println("WiFi connected");
 
