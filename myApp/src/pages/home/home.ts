@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ModelProvider } from '../../providers/model/model';
 
 /**
  * Generated class for the HomePage page.
@@ -15,9 +16,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomePage {
 
-  state={ledson:true,alarming:true}
+  state;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public model: ModelProvider) {
+    
+    model.subject.subscribe((state) => {
+      this.state = state;
+    });
   }
 
   ionViewDidLoad() {
@@ -26,9 +31,11 @@ export class HomePage {
 
   display(yes) {
     this.state.ledson=yes;
+    this.model.updated(this.state)
   }
 
   alarmoff() {
     this.state.alarming=false;
+    this.model.updated(this.state)
   }
 }

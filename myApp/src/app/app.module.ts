@@ -16,6 +16,7 @@ import { NetworkInterface } from '@ionic-native/network-interface';
 import { ConfigProvider } from '../providers/config/config';
 import { IpProvider } from '../providers/ip/ip';
 import { HomePage } from '../pages/home/home';
+import { ModelProvider } from '../providers/model/model';
 
 @NgModule({
   declarations: [
@@ -45,11 +46,13 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     IpProvider,
+    ModelProvider,
     SplashScreen,
     NetworkInterface,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ConfigProvider,
-    IpProvider
+    IpProvider,
+    ModelProvider
   ]
 })
 export class AppModule {}

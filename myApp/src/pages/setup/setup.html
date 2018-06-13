@@ -17,44 +17,44 @@
 
 <ion-content padding>
 
-    <ion-select [(ngModel)]="sunrise.val" interface="popover">
-        <ion-option *ngFor="let opt of options" [value]="opt.val"> {{opt.disp}} </ion-option>
+    <ion-select [(ngModel)]="state.sunrise.scheme" interface="popover">
+        <ion-option *ngFor="let opt of options" [value]="opt.val"  (ionSelect)="update($event)"> {{opt.disp}} </ion-option>
     </ion-select>
    
 
   <ion-list-header>
     Fade
-    <ion-badge item-end>{{sunrise.fade}}</ion-badge>
+    <ion-badge item-end>{{state.sunrise.fade}}</ion-badge>
   </ion-list-header>
 
   <ion-item>
-    <ion-range [(ngModel)]="sunrise.fade">
+    <ion-range [(ngModel)]="state.sunrise.fade" debounce="500" (ionChange)="update($event)">
     </ion-range>
   </ion-item>
 
   <ion-list-header>
     Hold
-    <ion-badge item-end>{{sunrise.fade}}</ion-badge>
+    <ion-badge item-end>{{state.sunrise.hold}}</ion-badge>
   </ion-list-header>
 
   <ion-item>
-    <ion-range [(ngModel)]="sunrise.hold">
+    <ion-range [(ngModel)]="state.sunrise.hold" debounce="500" (ionChange)="update($event)">
     </ion-range>
   </ion-item>
 
 
   <ion-list-header>
     Blink
-    <ion-badge item-end>{{sunrise.blink}}</ion-badge>
+    <ion-badge item-end>{{state.sunrise.blink}}</ion-badge>
   </ion-list-header>
 
   <ion-item>
-    <ion-range [(ngModel)]="sunrise.blink">
+    <ion-range [(ngModel)]="state.sunrise.blink" debounce="500" (ionChange)="update($event)">
     </ion-range>
   </ion-item>
 
 
-  <button *ngIf="!previewing" ion-button block (click)="preview(true)" color="default">Preview</button>
-  <button *ngIf="previewing" ion-button block (click)="preview(false)" color="danger">Stop Preview</button>
+  <button *ngIf="!state.sunrise.previewing" ion-button block (click)="preview(true)" color="default">Preview</button>
+  <button *ngIf="state.sunrise.previewing" ion-button block (click)="preview(false)" color="danger">Stop Preview</button>
 
 </ion-content>

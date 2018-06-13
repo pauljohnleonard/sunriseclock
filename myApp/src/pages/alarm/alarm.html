@@ -10,18 +10,18 @@
 <ion-content padding>
 
 
-  <ng-container *ngFor="let day of days">
+  <ng-container *ngFor="let day of state.alarm.days;let i=index">
     <ion-item>
-      <ion-label>{{day.label}}</ion-label>
-      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="day.time"></ion-datetime>
-      <ion-toggle [(ngModel)]="day.on" [disabled]="alarm.off"></ion-toggle>
+      <ion-label>{{days[i]}}</ion-label>
+      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="day.time" (ionChange)="update()"></ion-datetime>
+      <ion-toggle [(ngModel)]="day.on" [disabled]="state.alarm.off"   (ionChange)="update()"></ion-toggle>
     </ion-item>
   </ng-container>
 
 
   <ion-item>
     <ion-label>Disable all</ion-label>
-    <ion-toggle [(ngModel)]="alarm.off"></ion-toggle>
+    <ion-toggle [(ngModel)]="state.alarm.off" (ionChange)="update()"></ion-toggle>
   </ion-item>
 
 </ion-content>
