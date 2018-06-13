@@ -18,14 +18,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SetupPage {
 
-    sunrise = { fade: 30, blink: 10, val: 2 }
+    sunrise = { fade: 30,hold:10, blink: 5, val: 2 }
     previewing:false
 
-    gaming="n64"
-    options = [{ val: 0, disp: "simple" },
-    { val: 1, disp: "rainbow" },
-    { val: 2, disp: "psycho" }]
-
+    options = [{ val: 0, disp: "Simple" },
+    { val: 1, disp: "Rainbow" },
+    { val: 2, disp: "Psycho" }]
 
 
     constructor(public navCtrl: NavController, public http: HttpClient) {

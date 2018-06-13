@@ -8,6 +8,7 @@ import { NavController } from 'ionic-angular';
 export class AlarmPage {
 
 
+  
   days=
     [{label:"mon",time:"07:45",on:true},
     {label:"tue",time:"07:45",on:true},
@@ -16,7 +17,8 @@ export class AlarmPage {
     {label:"fri",time:"07:45",on:true},
     {label:"sat",time:"10:45",on:true},
     {label:"sun",time:"12:00",on:false}]
-    alarm={on:true}
+
+  alarm={off:false}
 
   constructor(public navCtrl: NavController) {
 

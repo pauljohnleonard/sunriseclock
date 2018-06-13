@@ -1,15 +1,12 @@
-<ion-header no-border>
-        <ion-toolbar>
-          <button ion-button icon-only>
-      
-            <ion-icon name="alarm"> </ion-icon>
-          </button>
-          <ion-buttons end>
-            <ion-toggle [(ngModel)]="alarm.on"></ion-toggle>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      
+<!-- <ion-header no-border>
+  <ion-toolbar>
+    <button ion-button icon-only>
+      <ion-icon name="alarm"> </ion-icon>
+    </button>
+    Alarm
+  </ion-toolbar>
+</ion-header> -->
+
 <ion-content padding>
 
 
@@ -17,9 +14,14 @@
     <ion-item>
       <ion-label>{{day.label}}</ion-label>
       <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="day.time"></ion-datetime>
-      <ion-toggle [(ngModel)]="day.on" [disabled]="!alarm.on"></ion-toggle>
+      <ion-toggle [(ngModel)]="day.on" [disabled]="alarm.off"></ion-toggle>
     </ion-item>
   </ng-container>
 
+
+  <ion-item>
+    <ion-label>Disable all</ion-label>
+    <ion-toggle [(ngModel)]="alarm.off"></ion-toggle>
+  </ion-item>
 
 </ion-content>

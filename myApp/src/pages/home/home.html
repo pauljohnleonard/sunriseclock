@@ -1,0 +1,23 @@
+<!-- <ion-header no-border>
+  <ion-toolbar>
+    <button ion-button icon-only>
+      <ion-icon name="home"> </ion-icon>
+    </button>
+    
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content padding>
+
+    <button *ngIf="!state.ledson" ion-button block (click)="display(true)" color="danger">LEDS On</button>
+    <button *ngIf="state.ledson" ion-button block (click)="display(false)" color="default">LEDS Off</button>
+ 
+
+   
+    <button *ngIf="state.alarming" class="custom-font-size" ion-button icon-top  block (click)="alarmoff()" color="alert" style="height:70vh">
+        <ion-icon name="alarm" > </ion-icon>
+      </button>
+  
+
+
+</ion-content>

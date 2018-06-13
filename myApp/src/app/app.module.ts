@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NetworkInterface } from '@ionic-native/network-interface';
 import { ConfigProvider } from '../providers/config/config';
 import { IpProvider } from '../providers/ip/ip';
+import { HomePage } from '../pages/home/home';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { IpProvider } from '../providers/ip/ip';
     SetupPage,
     SetupNetPage,
     AlarmPage,
+    HomePage,
     TabsPage
   ],
   imports: [
@@ -36,6 +38,7 @@ import { IpProvider } from '../providers/ip/ip';
     AboutPage,
     SetupPage,
     SetupNetPage,
+    HomePage,
     AlarmPage,
     TabsPage
   ],
