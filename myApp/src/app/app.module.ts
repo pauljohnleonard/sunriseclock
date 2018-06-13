@@ -5,7 +5,8 @@ import { MyApp } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
 import { SetupPage } from '../pages/setup/setup';
-import { HomePage } from '../pages/home/home';
+import { SetupNetPage } from '../pages/setup-net/setup-net';
+import { AlarmPage } from '../pages/alarm/alarm';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -20,7 +21,8 @@ import { IpProvider } from '../providers/ip/ip';
     MyApp,
     AboutPage,
     SetupPage,
-    HomePage,
+    SetupNetPage,
+    AlarmPage,
     TabsPage
   ],
   imports: [
@@ -33,7 +35,8 @@ import { IpProvider } from '../providers/ip/ip';
     MyApp,
     AboutPage,
     SetupPage,
-    HomePage,
+    SetupNetPage,
+    AlarmPage,
     TabsPage
   ],
   providers: [

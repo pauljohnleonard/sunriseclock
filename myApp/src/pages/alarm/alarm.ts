@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-alarm',
+  templateUrl: 'alarm.html'
 })
-export class HomePage {
+export class AlarmPage {
 
 
   days=
@@ -16,8 +16,7 @@ export class HomePage {
     {label:"fri",time:"07:45",on:true},
     {label:"sat",time:"10:45",on:true},
     {label:"sun",time:"12:00",on:false}]
-
-  
+    alarm={on:true}
 
   constructor(public navCtrl: NavController) {
 

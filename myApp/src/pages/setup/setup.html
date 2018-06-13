@@ -1,31 +1,51 @@
-<!--
-  Generated template for the SetupPage page.
+<ion-header no-border>
+  <ion-toolbar>
+    <button ion-button icon-only>
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>setup</ion-title>
-  </ion-navbar>
-
+      <ion-icon name="settings"> </ion-icon>
+    </button>
+  </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding>
-    <ion-list>
-        <ion-item>
-          <ion-label fixed>Network</ion-label>
-          <ion-input type="text" [(ngModel)]='ssid' ></ion-input>
-        </ion-item>
-      
-        <ion-item>
-          <ion-label fixed>Password</ion-label>
-          <ion-input type="password" [(ngModel)]='password'></ion-input>
-        </ion-item>
-      
-      </ion-list>
 
-      <button ion-button block (click)="setup()">Apply</button>
+
+<ion-content padding>
+
+
+
+  <ion-list-header>
+    <ion-label>Sunrise</ion-label>
+    <ion-select [(ngModel)]="sunrise.val" interface="popover">
+      <ion-option *ngFor="let opt of options" [value]="opt.val"> {{opt.disp}} </ion-option>
+    </ion-select>
+  </ion-list-header>
+
+  <ion-list-header>
+    Fade Time
+    <ion-badge item-end>{{sunrise.fade}}</ion-badge>
+  </ion-list-header>
+
+  <ion-item>
+    <ion-range [(ngModel)]="sunrise.fade">
+    </ion-range>
+  </ion-item>
+
+
+
+  <ion-list-header>
+    Blink For
+    <ion-badge item-end>{{sunrise.blink}}</ion-badge>
+  </ion-list-header>
+
+  <ion-item>
+    <ion-range [(ngModel)]="sunrise.blink">
+    </ion-range>
+  </ion-item>
+
+
+
+  <button *ngIf="!previewing" ion-button block (click)="preview(true)" color="default">Preview</button>
+  <button *ngIf="previewing" ion-button block (click)="preview(false)" color="danger">Stop Preview</button>
+
 </ion-content>
