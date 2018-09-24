@@ -11,32 +11,16 @@ void setup() {
 
   Serial.println();
 
-  Serial.print("Configuring access point...");
+  Serial.print("Setup ...");
   eeprom_setup();
-  wifi_setup();
-
+ 
 }
 
 
-String find(String req,String param){
-//  String req=String(reqB);
-  int start=req.indexOf(param+"=");
-  start=req.indexOf("=",start);
-  if (start<0) return "";
-  start++;
-  int jj=req.indexOf("&",start);
-  int kk=req.indexOf(" ",start);
-  int end=jj;
-  
-  if ( jj < 0  ||  (kk >0 && kk <jj) ) end=kk;
-  
-  String val=req.substring(start,end);
-
-  return val;
-}
 
 
 void handleCmd(String req) {
+  Serial.print(" handleCmd "); Serial.println(req);  
   String str=find(req,"ssid");
   str.toCharArray(esid,MAX_SSID);
   Serial.print("SSID=");Serial.println(esid);
@@ -49,7 +33,11 @@ void handleCmd(String req) {
 
 void loop() {
 
- 
+  if (wifi_state == wifi_UNDEF) {
+    wifi_setup();
+    wifi_print_status();
+  }
+
   // Wait until the client sends some data
  
   String  request = wifi_getCommand();

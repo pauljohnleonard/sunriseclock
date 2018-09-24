@@ -14,7 +14,7 @@ void eeprom_read() {
   delay(10);
   Serial.println();
   Serial.println();
-  Serial.println("Startup");
+  Serial.println("EEPROM_READ");
   // read eeprom for ssid and pass
   Serial.println("Reading EEPROM ssid");
   for (int i = 0; i < MAX_SSID; ++i)
@@ -30,6 +30,9 @@ void eeprom_read() {
   }
   Serial.print("PASS: ");
   Serial.println(epass);
+ Serial.println("Done: EEPROM_READ");
+ 
+
 }
 
 void eeprom_write() {

@@ -6,10 +6,38 @@ const char *apssid = "SunriseSetup";
 
 WiFiServer server(80);//Service Port
 
-int state=wifi_UNDEF;
+int wifi_state=wifi_UNDEF;
 
 
-void wifi_setup() {
+Request::Request(char *raw){
+    this->raw=raw;
+    this->type=strtok(raw," ");
+
+}
+
+char*  Request::getParam(char *param){
+//  String req=String(reqB);
+
+
+  int start=this->raw.indexOf(param+"=");
+  start=this->raw.indexOf("=",start);
+
+  if (start<0) return "";
+  start++;
+  int jj=this->raw.indexOf("&",start);
+  int kk=this->raw.indexOf(" ",start);
+  int end=jj;
+  
+  if ( jj < 0  ||  (kk >0 && kk <jj) ) end=kk;
+  
+  char* val = this->raw.substring(start,end);
+
+  return val;
+}
+
+void wifi_setupSTATION() {
+
+  Serial.print("WIFI trying to connect to ");Serial.println(esid);
 
   WiFi.begin(esid, epass);
 
@@ -18,7 +46,7 @@ void wifi_setup() {
       delay(500);
       Serial.print(".");
     } else {
-      state = wifi_STATION;
+      wifi_state = wifi_STATION;
   
       Serial.println("");
       Serial.println("WiFi connected");
@@ -34,37 +62,64 @@ void wifi_setup() {
       Serial.println("/");
       return;
     }
-  }
+
   
+  }
+ 
+  Serial.println("Giving up");
   WiFi.disconnect();
+  wifi_state = wifi_UNDEF;
 
 }
 
 
+void wifi_setup() {
+    Serial.println("WIFI SETUP");
+   // wifi_setupSTATION();   //  First try to connect to local network using  "esid" and "epass" rom EPROM 
+
+   // if (wifi_state == wifi_STATION) return;
+
+    wifi_setupAP();
+
+    if (wifi_state == wifi_AP) return;
+
+}
+
 
 void wifi_setupAP() {
 
-  WiFi.softAP(apssid);
 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected");
+ Serial.print("WIFI creating access point ");Serial.println(apssid);
+
+   boolean result =  WiFi.softAP(apssid);
+
+//   while (WiFi.status() != WL_CONNECTED) {
+//     delay(500);
+//     Serial.print(".");
+//   }
+
+  if (result) {  
+    Serial.println("");
+    Serial.println("WiFi AP created");
   
-  state=wifi_AP;
+    wifi_state = wifi_AP;
   
-  // Start the server
-  server.begin();
-  Serial.println("Server started");
+    // Start the server
+    server.begin();
+    Serial.println("Server started");
 
-  IPAddress myIP = WiFi.softAPIP();
+    IPAddress myIP = WiFi.softAPIP();
 
-  Serial.print("AP IP address: ");
+    Serial.print("AP IP address: ");
 
-  Serial.println(myIP);
+    Serial.println(myIP);
+  } else {
+    Serial.println("WiFi AP failed to create");
 
+    wifi_state = wifi_UNDEF;
+    WiFi.disconnect();
+
+  }    
 
 }
 
@@ -117,5 +172,13 @@ String wifi_getCommand() {
   }
 }
 
+void wifi_print_status() {
+
+    switch(wifi_state) {
+        case wifi_UNDEF: Serial.println(" WIFI unconnected");break;
+        case wifi_STATION: Serial.print(" WIFI station ");Serial.print(esid);break;
+        case wifi_AP: Serial.print(" WIFI station ");Serial.print(apssid);break;
+    }
+}
 
 

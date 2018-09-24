@@ -13,10 +13,23 @@ extern WiFiServer server; //Service Port
 #define wifi_STATION   1
 #define wifi_AP  2
 
-extern int state;
+extern int wifi_state;
 
 void wifi_setup();
-String wifi_getCommand();
-void wifi_response(String resp);
+void wifi_setupAP();
+void wifi_setupSTATION();
+char *wifi_getCommand();
+void wifi_response(char *resp);
+void wifi_print_status();
+
+
+class Request {
+    char *type;
+    char *raw;
+    public: char *path;
+
+    public: Request(char *raw);
+    public: String getParam(char *param);
+};
 
 #endif
