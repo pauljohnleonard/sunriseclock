@@ -58,7 +58,7 @@ unsigned long alarm_fade_time;
 
 void setBrightness(float b) {
   // Serial.println(brightness);
-  brightness = max(0, min(1.0, b));
+  brightness = 1.0; // max(0, min(1.0, b));   // HACK
 
 }
 

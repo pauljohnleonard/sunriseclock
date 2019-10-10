@@ -21,11 +21,11 @@ void setup() {
 
 void loop() {
   visitVR();
-  if (alarm.on) {
-    if ( (alarm.Hour == tm.Hour) && (alarm.Minute == tm.Minute) && (tm.Second == 0 )) {
-      doAlarm();
-    }
-  }
+ // if (alarm.on) {
+ //   if ( (alarm.Hour == tm.Hour) && (alarm.Minute == tm.Minute) && (tm.Second == 0 )) {
+ //     doAlarm();
+ //   }
+ // }
   ui();
   RTC.read(tm);
   display();
