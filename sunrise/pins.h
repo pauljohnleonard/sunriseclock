@@ -16,6 +16,13 @@
 #define CAP_11 9
 
 
+// light sensor
+#define LIGHT_SENSOR_PIN A6
+
 
 //----------- LEDS -------------------
 #define LED_PIN 13
+
+
+// 
+#define TEMPERATURE_PIN 11

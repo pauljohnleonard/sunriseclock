@@ -2,6 +2,7 @@
 #include "global.h"
 #include "ui.h"
 #include "display.h"
+#include "temperature.h"
 
 
 //-------------------------- SETUP AND LOOP CODE ---------------------------
@@ -9,25 +10,27 @@
 void setup() { 
   Serial.begin(9600);
   while(!Serial);
-  Serial.println(F(__FILE__));
-  
+  Serial.println(F(__DATE__));
+
+  setupTemperature();
   setupDisplay();
   setupUI();
- //  setupVR();
   loadFromEEPROM();
   displaySetScheme();
 
 }
 
 void loop() {
-  // visitVR();
- // if (alarm.on) {
- //   if ( (alarm.Hour == tm.Hour) && (alarm.Minute == tm.Minute) && (tm.Second == 0 )) {
- //     doAlarm();
- //   }
- // }
+ 
+  if (alarm.on) {
+    if ( (alarm.Hour == tm.Hour) && (alarm.Minute == tm.Minute) && (tm.Second == 0 )) {
+      doAlarm();
+    }
+  }
+
   ui();
-  RTC.read(tm);
+  RTC.read(tm);   
+  // Serial.println(readTemperature());
   display();
   waitForRelease();  // debounce
 }

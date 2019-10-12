@@ -12,7 +12,7 @@
  #include "WProgram.h"
 #endif
 
-#define DEBUGING 1
+#define DEBUGING 0
 
 #include <Wire.h>
 #include <Time.h>

@@ -7,6 +7,7 @@
 #include "util.h"
 #include "debug.h"
 #include "global.h"
+#include "temperature.h"
 
 
 // CLOCK DISP
@@ -22,11 +23,15 @@
 #define HYST  0.1
 #define NLEDS 37
 #define LOW_VOLT_MILLIS  3300
+#define MAX_TEMPERATURE  50
 
 // Light map
 #define N_LT 8
 
 float lt[N_LT][2] = { { -0.0001, 1}, {20, 4}, {100, 6}, {200, 8}, {300, 9} , {500, 10},  {800, 11},  {1024, 20}};
+bool overload = false;
+
+
 
 // --- GLOBALS --------------
 
@@ -57,9 +62,7 @@ float brightness = 1.0;
 unsigned long alarm_fade_time;
 
 void setBrightness(float b) {
-  // Serial.println(brightness);
-  brightness = 1.0; // max(0, min(1.0, b));   // HACK
-
+  brightness=max(0, min(1.0, b));  
 }
 
 uint32_t doColor(MyColor c) {
@@ -312,11 +315,11 @@ void chaos(unsigned long t) {
 
 }
 
-bool overload = false;
+
 void fadeIn(unsigned long t) {
 
-
-  if (readVcc() < LOW_VOLT_MILLIS) {
+ float temp=readTemperature();
+  if (readVcc() < LOW_VOLT_MILLIS   || temp > MAX_TEMPERATURE ) {
     if (!overload) DEBUGLN(" TOO MUCH LIGHT ARGGHHH ");
     overload = true;
     brightness *= .9;
@@ -510,9 +513,11 @@ void displaySetSchemeVR(int scheme) {
 void displayAutoBright() {
 
   if (doDisplay) {
-    float raw = analogRead(A6);
+    float raw = analogRead(LIGHT_SENSOR_PIN);
+ //   Serial.println(raw);
     float lraw = mapLight(raw);
     float bright = filter(lraw);
+ //   Serial.println(bright);
     setBrightness(bright / 255);
   } else {
     setBrightness(0);
@@ -594,5 +599,3 @@ void setupDisplay() {
 //    }
 //  }
 //}
-
-

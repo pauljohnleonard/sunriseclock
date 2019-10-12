@@ -3,6 +3,7 @@
 
 
 #define COMMAND  0 
+#define TEMPERATURE 3 
 #define ALARM 6 
 #define OFF1  7 
 #define OFF2  8 

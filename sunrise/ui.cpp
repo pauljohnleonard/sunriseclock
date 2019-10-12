@@ -13,6 +13,7 @@
 #define LONG_PRESS     1000
 #define WAIT_FOR_PRESS 2000
 bool buts[12];
+bool buts_prev[12];
 
 // capacitor sensor
 #define CAP_SAMPLES  4
@@ -43,6 +44,7 @@ void setupUI() {
 }
 
 
+
 int checkButtons() {
   int cnt = 0;
   for (int i = 0; i < 12; i++) {
@@ -51,19 +53,31 @@ int checkButtons() {
     if (tt > CAP_THRESH ) {
       buts[i] = true;
       cnt++;
-  //    delay(50);
+      //    delay(50);
     } else {
       buts[i] = false;
     }
   }
 
-  if (cnt > 0) {
+  bool changed = false;
+
   for (int i = 0; i < 12; i++) {
-    DEBUG(buts[i])
-  } 
-  DEBUG(" : ");
-  DEBUG(cnt);
-  DEBUGLN("");
+    changed = changed || (buts[i] != buts_prev[i]);
+  }
+
+  if (changed) {
+    for (int i = 0; i < 12; i++) {
+      DEBUG(buts[i])
+    }
+    DEBUG(" : ");
+    DEBUG(cnt);
+    DEBUGLN("");
+  }
+
+
+
+  for (int i = 0; i < 12; i++) {
+    buts_prev[i] = buts[i];
   }
   return cnt;
 }
@@ -116,7 +130,7 @@ void butCommand(int key1) {
         sunriseType = key2;
         saveToEEPROM();
       }
-   //   loadTop(false);
+      //   loadTop(false);
       waitForRelease();
       doAlarm();
       return;
@@ -131,23 +145,23 @@ void butCommand(int key1) {
       waitForRelease();
       key2 = waitForButton(WAIT_FOR_PRESS);
       if (key2 >= 1) {
-        scheme1 = min(7,key2);
+        scheme1 = min(7, key2);
       }
-      displayPrompt({0,255,0},bit2col(scheme1));
-   
+      displayPrompt({0, 255, 0}, bit2col(scheme1));
+
       waitForRelease();
       key2 = waitForButton(WAIT_FOR_PRESS);
       if (key2 >= 1) {
-        scheme2 = min(7,key2);
+        scheme2 = min(7, key2);
       }
-      displayPrompt({0,255,0},bit2col(scheme1),bit2col(scheme2));
+      displayPrompt({0, 255, 0}, bit2col(scheme1), bit2col(scheme2));
       delay(500);
       displaySetScheme();
-      
+
       saveToEEPROM();
-      
-      
-      
+
+
+
       return;
 
     case RATE:
@@ -156,10 +170,10 @@ void butCommand(int key1) {
       key2 = waitForButton(WAIT_FOR_PRESS);
 
       if (key2 >= 1) {
-        rate = min(7,key2);
+        rate = min(7, key2);
         saveToEEPROM();
       }
-   //   loadTop(false);
+      //   loadTop(false);
       waitForRelease();
       doAlarm();
       return;
@@ -211,20 +225,20 @@ void ui() {
       }
       else if (buts[9]) {
         if (buts[1]) {
-     //     resetVR();
-     //     trainVR();
+          //     resetVR();
+          //     trainVR();
           return;
         } else if (buts[2]) {
-    //      trainVR();
+          //      trainVR();
           return;
-        } else if (buts[3]) {   
-            while(checkButtons() && buts[9]) {
-    //              voiceReco = !voiceReco;
-    //              displayRecoState();
-                  displayShow();           
-                  while(checkButtons() && buts[3]);
-                  while(checkButtons() && !buts[3] && buts[9]);
-            }
+        } else if (buts[3]) {
+          while (checkButtons() && buts[9]) {
+            //              voiceReco = !voiceReco;
+            //              displayRecoState();
+            displayShow();
+            while (checkButtons() && buts[3]);
+            while (checkButtons() && !buts[3] && buts[9]);
+          }
         }
       }
       return;
@@ -349,4 +363,3 @@ void ui() {
 
   }
 }
-
